@@ -1,13 +1,19 @@
 import React, {useState} from 'react';
 import classes from "./Card.module.scss";
 
-const Card = ({id, name, imgUrl, price, onPlus, onFavorite}) => {
+const Card = ({id, name, imgUrl, price, onPlus, onFavorite, favorited = false}) => {
 
     const [isAdded, setIsAdded] = useState(false);
+    const [isFavorite, setIsFavorite] = useState(favorited);
 
     const handleCheck = () => {
         onPlus({id, name, imgUrl, price})
-        setIsAdded(! isAdded)
+        setIsAdded(!isAdded)
+    }
+
+    const handleLike = () => {
+        onFavorite({id, name, imgUrl, price})
+        setIsFavorite(!isFavorite)
     }
 
 
@@ -15,7 +21,7 @@ const Card = ({id, name, imgUrl, price, onPlus, onFavorite}) => {
     return (
         <div className={classes.card}>
             <div className={classes.favorite} onClick={onFavorite}>
-                <img src="/img/heart_unliked.svg" alt="Unliked"/>
+                <img onClick={handleLike} src={!isFavorite ? '/img/heart_unliked.svg' : '/img/heart_liked.svg'} alt="Unliked"/>
             </div>
             <img width={133} height={112} src={imgUrl} alt=""/>
             <h5>{name}</h5>
