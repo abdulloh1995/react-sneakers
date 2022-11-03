@@ -14,7 +14,7 @@ const Drawer = ({onClose, items = [], onDeleteInCart}) => {
                         (<>
                             <div className="items">
                                 {items.map(item => (
-                                    <div className="cartItem d-flex align-center mb-20">
+                                    <div key={item.id} className="cartItem d-flex align-center mb-20">
                                         <div style={{backgroundImage: `url(${item.imgUrl})`}} className="cartItemImg">
 
                                         </div>

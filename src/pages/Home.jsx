@@ -2,10 +2,28 @@ import React from 'react';
 import Card from "../components/Card/Card";
 
 const Home = ({
-                  items, searchValue, setSearchValue, onChangeSearchInput, onAddToCart, onAddToFavorite
+                  items, isLoading, cartItems, searchValue, setSearchValue, onChangeSearchInput, onAddToCart, onAddToFavorite
               }) => {
     const clearInput = () => {
         setSearchValue('')
+    }
+
+    const renderItems = () => {
+        const filteredItems = items.filter((item) =>
+            item.name.toLowerCase().includes(searchValue.toLowerCase())
+        )
+        return (isLoading
+            ? [...Array(8)]
+            : filteredItems).map((item, index) => (
+            <Card
+                key={index}
+                {...item}
+                onFavorite={(obj) => onAddToFavorite(obj)}
+                onPlus={(obj) => onAddToCart(obj)}
+                added={cartItems.some(obj => Number(obj.id) === Number(item.id))}
+                loading={isLoading}
+            />
+        ))
     }
 
     return (
@@ -30,14 +48,7 @@ const Home = ({
 
             <div className="d-flex flex-wrap">
                 {/*start cards*/}
-                {items.map((item) => (
-                    <Card
-                        key={item.id}
-                        {...item}
-                        onFavorite={(obj) => onAddToFavorite(obj)}
-                        onPlus={(obj) => onAddToCart(obj)}
-                    />
-                ))}
+                {renderItems()}
                 {/*end cards*/}
             </div>
         </div>
