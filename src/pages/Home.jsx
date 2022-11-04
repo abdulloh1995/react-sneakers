@@ -1,9 +1,18 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Card from "../components/Card/Card";
+import AppContext from "../context";
 
 const Home = ({
-                  items, isLoading, cartItems, searchValue, setSearchValue, onChangeSearchInput, onAddToCart, onAddToFavorite
+                  items,
+                  isLoading,
+                  searchValue,
+                  setSearchValue,
+                  onChangeSearchInput,
+                  onAddToCart,
+                  onAddToFavorite
               }) => {
+
+
     const clearInput = () => {
         setSearchValue('')
     }
@@ -20,7 +29,6 @@ const Home = ({
                 {...item}
                 onFavorite={(obj) => onAddToFavorite(obj)}
                 onPlus={(obj) => onAddToCart(obj)}
-                added={cartItems.some(obj => Number(obj.id) === Number(item.id))}
                 loading={isLoading}
             />
         ))

@@ -1,15 +1,16 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import classes from "./Card.module.scss";
 import ContentLoader from "react-content-loader";
+import AppContext from "../../context";
 
-const Card = ({id, name, imgUrl, price, onPlus, onFavorite, favorited = false, added = false, loading = false}) => {
+const Card = ({id, name, imgUrl, price, onPlus, onFavorite, favorited = false, loading = false}) => {
 
-    const [isAdded, setIsAdded] = useState(added);
     const [isFavorite, setIsFavorite] = useState(favorited);
+    const {isItemAdded} = useContext(AppContext)
+
 
     const handleCheck = () => {
         onPlus({id, name, imgUrl, price})
-        setIsAdded(!isAdded)
     }
 
     const handleLike = () => {
@@ -50,7 +51,7 @@ const Card = ({id, name, imgUrl, price, onPlus, onFavorite, favorited = false, a
                             </div>
                             <span>
                 <img className={classes.plus} onClick={handleCheck}
-                     src={!isAdded ? '/img/btn_plus.svg' : '/img/btn-checked.svg'} alt="plus"/>
+                     src={isItemAdded(id) ?  '/img/btn-checked.svg' : '/img/btn_plus.svg' } alt="plus"/>
                 </span>
                         </div>
                     </>
