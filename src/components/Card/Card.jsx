@@ -7,14 +7,15 @@ const Card = ({id, name, imgUrl, price, onPlus, onFavorite, favorited = false, l
 
     const [isFavorite, setIsFavorite] = useState(favorited);
     const {isItemAdded} = useContext(AppContext)
+    const obj = {id, parentId: id, name, imgUrl, price}
 
 
     const handleCheck = () => {
-        onPlus({id, name, imgUrl, price})
+        onPlus(obj)
     }
 
     const handleLike = () => {
-        onFavorite({id, name, imgUrl, price})
+        onFavorite(obj)
         setIsFavorite(!isFavorite)
     }
 
@@ -39,8 +40,9 @@ const Card = ({id, name, imgUrl, price, onPlus, onFavorite, favorited = false, l
                     </ContentLoader> :
                     <>
                         <div className={classes.favorite} onClick={onFavorite}>
-                            <img onClick={handleLike}
-                                 src={!isFavorite ? '/img/heart_unliked.svg' : '/img/heart_liked.svg'} alt="Unliked"/>
+                            {onFavorite && <img onClick={handleLike}
+                                                src={!isFavorite ? '/img/heart_unliked.svg' : '/img/heart_liked.svg'}
+                                                alt="Unliked"/>}
                         </div>
                         <img width={133} height={112} src={imgUrl} alt=""/>
                         <h5>{name}</h5>
@@ -50,8 +52,8 @@ const Card = ({id, name, imgUrl, price, onPlus, onFavorite, favorited = false, l
                                 <b>{price} руб.</b>
                             </div>
                             <span>
-                <img className={classes.plus} onClick={handleCheck}
-                     src={isItemAdded(id) ?  '/img/btn-checked.svg' : '/img/btn_plus.svg' } alt="plus"/>
+                {onPlus && <img className={classes.plus} onClick={handleCheck}
+                                src={isItemAdded(id) ? '/img/btn-checked.svg' : '/img/btn_plus.svg'} alt="plus"/>}
                 </span>
                         </div>
                     </>

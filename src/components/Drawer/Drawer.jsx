@@ -1,12 +1,13 @@
-import React, {useContext, useState} from 'react';
-import Info from "./Info";
-import AppContext from "../context";
+import React, {useState} from 'react';
+import Info from "../Info";
 import axios from "axios";
+import {useCart} from "../../hooks/useCart";
+import classes from "./Drawer.module.scss";
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
-const Drawer = ({onClose, items = [], onDeleteInCart}) => {
-    const {cartItems, setCartItems} = useContext(AppContext)
+const Drawer = ({onClose, items = [], onDeleteInCart, opened}) => {
+    const {cartItems, setCartItems, totalPrice} = useCart()
     const [isCompleted, setIsCompleted] = useState(false);
     const [orderId, setOrderId] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -33,17 +34,16 @@ const Drawer = ({onClose, items = [], onDeleteInCart}) => {
     }
 
     return (
-        <div className="overlay">
-            <div className="drawer">
+        <div className={`${classes.overlay} ${opened ? classes.overlayVisible : ''} `}>
+            <div className={classes.drawer}>
                 <h2 className="mb-30 d-flex justify-between">Корзина
                     <img onClick={onClose} className="removeBtn cu-p" src="/img/btn_remove.svg" alt="Close"/>
                 </h2>
-
                 {
                     items.length > 0
                         ?
                         (<div className="d-flex flex-column flex">
-                            <div className="items">
+                            <div className="items flex">
                                 {items.map(item => (
                                     <div key={item.id} className="cartItem d-flex align-center mb-20">
                                         <div style={{backgroundImage: `url(${item.imgUrl})`}} className="cartItemImg">
@@ -63,12 +63,12 @@ const Drawer = ({onClose, items = [], onDeleteInCart}) => {
                                     <li>
                                         <span>Итого: </span>
                                         <div></div>
-                                        <b>21 498 руб. </b>
+                                        <b>{totalPrice} руб. </b>
                                     </li>
                                     <li>
                                         <span>Налог 5%: </span>
                                         <div></div>
-                                        <b>1074 руб. </b>
+                                        <b>{Math.ceil(totalPrice / 100 * 5)} руб. </b>
                                     </li>
                                 </ul>
                                 <button disabled={isLoading} onClick={onClickOrder} className="greenButton">Оформить
