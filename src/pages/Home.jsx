@@ -42,10 +42,10 @@ const Home = ({
                     {searchValue && <img
                         className="clear"
                         onClick={clearInput}
-                        src="/img/btn_remove.svg"
+                        src="img/btn_remove.svg"
                         alt="Clear"
                     />}
-                    <img src="/img/search.svg" alt="Search"/>
+                    <img src="img/search.svg" alt="Search"/>
                     <input
                         onChange={onChangeSearchInput}
                         placeholder="Поиск..."

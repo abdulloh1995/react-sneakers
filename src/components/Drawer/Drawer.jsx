@@ -37,7 +37,7 @@ const Drawer = ({onClose, items = [], onDeleteInCart, opened}) => {
         <div className={`${classes.overlay} ${opened ? classes.overlayVisible : ''} `}>
             <div className={classes.drawer}>
                 <h2 className="mb-30 d-flex justify-between">Корзина
-                    <img onClick={onClose} className="removeBtn cu-p" src="/img/btn_remove.svg" alt="Close"/>
+                    <img onClick={onClose} className="removeBtn cu-p" src="img/btn_remove.svg" alt="Close"/>
                 </h2>
                 {
                     items.length > 0
@@ -54,7 +54,7 @@ const Drawer = ({onClose, items = [], onDeleteInCart, opened}) => {
                                             <b>{item.price}</b>
                                         </div>
                                         <img onClick={() => onDeleteInCart(item.id)} className="removeBtn"
-                                             src="/img/btn_remove.svg" alt="Remove"/>
+                                             src="img/btn_remove.svg" alt="Remove"/>
                                     </div>
                                 ))}
                             </div>
@@ -73,7 +73,7 @@ const Drawer = ({onClose, items = [], onDeleteInCart, opened}) => {
                                 </ul>
                                 <button disabled={isLoading} onClick={onClickOrder} className="greenButton">Оформить
                                     заказ <img
-                                        src="/img/arrow.svg" alt="Arrow"/>
+                                        src="img/arrow.svg" alt="Arrow"/>
                                 </button>
 
                             </div>
@@ -83,7 +83,7 @@ const Drawer = ({onClose, items = [], onDeleteInCart, opened}) => {
                             <Info
                                 title={isCompleted ? "Заказ оформлен!" : "Корзина пустая"}
                                 description={isCompleted ? `Ваш заказ #${orderId} скоро будет передан курьерской доставке` : "Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ."}
-                                image={isCompleted ? "/img/complete-order.jpg" : "/img/empty-cart.jpg"}
+                                image={isCompleted ? "img/complete-order.jpg" : "img/empty-cart.jpg"}
                             />
                         )
                 }
